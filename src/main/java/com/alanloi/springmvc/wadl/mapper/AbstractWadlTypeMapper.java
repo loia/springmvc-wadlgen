@@ -1,12 +1,13 @@
 package com.alanloi.springmvc.wadl.mapper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
 import lombok.extern.log4j.Log4j;
+
+import org.apache.commons.lang.ClassUtils;
 
 /**
  * Abstract base class for WadlTypeMapper.
@@ -45,13 +46,13 @@ public abstract class AbstractWadlTypeMapper implements WadlTypeMapper {
 		// add all the super classes and interfaces too
 		List<Class<?>> javaTypes = new ArrayList<Class<?>>();
 		javaTypes.add(javaType);
-		javaTypes.addAll(Arrays.asList(javaType.getClasses()));
+		javaTypes.addAll(getAllSuperClassesAndInterfaces(javaType));
 
 		if (log.isTraceEnabled()) {
 			log.trace("Param types: " + javaTypes);
 		}
 
-		for (JavaWadlTypePair binding : javaWadlTypeBindings) {
+		for (JavaWadlTypePair binding : this.javaWadlTypeBindings) {
 			Class<?> bindingType = binding.getJavaType();
 
 			if (javaTypes.contains(bindingType)) {
@@ -106,5 +107,12 @@ public abstract class AbstractWadlTypeMapper implements WadlTypeMapper {
 
 	protected static QName wadlQName(String localPart) {
 		return new QName(WADL_NAMESPACE, localPart);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static List<Class<?>> getAllSuperClassesAndInterfaces(Class<?> clazz) {
+		List<Class<?>> fullList = ClassUtils.getAllSuperclasses(clazz);
+		fullList.addAll(ClassUtils.getAllInterfaces(clazz));
+		return fullList;
 	}
 }
