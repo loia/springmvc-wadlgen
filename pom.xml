@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.alanloi</groupId>
   <artifactId>springmvc-wadlgen</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <name>WADL Generator for Spring MVC REST Services</name>
 
   <properties>
