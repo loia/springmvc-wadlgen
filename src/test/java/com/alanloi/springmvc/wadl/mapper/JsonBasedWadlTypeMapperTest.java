@@ -1,7 +1,3 @@
-/*
- * Copyright 2013 Virgin Australia Airlines Pty Limited. All rights reserved. Not to be copied, redistributed or
- * modified without prior written consent of Virgin Australia Airlines Pty Limited
- */
 package com.alanloi.springmvc.wadl.mapper;
 
 import static org.junit.Assert.assertEquals;
